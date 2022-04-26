@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ecom Shop</title>
      <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-     <link href="/css/main.css" rel="stylesheet">
+     <link href="public/css/main.css" rel="stylesheet">
 </head>
 <body>
     <div  class="bg-white">
@@ -21,9 +21,9 @@
                         </button>
                     </div>
                 </div>
-                <nav  class="p-6 mt-4 navigation text-white ">
+                <nav  class="navigation">
                     <a class=" logo " href="/">
-                        <img src="/img/shop-logo.png" alt="alt">
+                        <img src="public/img/shop-logo.png" alt="alt">
                         Ecom Shop
                     </a>
                     <div class="flex flex-col sm:flex-row ">
