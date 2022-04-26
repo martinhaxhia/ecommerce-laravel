@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,15 +10,11 @@ class ProductController extends Controller
     public function productList()
     {
         $products = Product::all();
+
         return view('products', compact('products'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
-    public function index(Request $request)
+public function index(Request $request)
     {
         $name = $request->name;
         return view('frontend', [
