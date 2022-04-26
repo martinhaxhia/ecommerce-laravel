@@ -34,7 +34,6 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
