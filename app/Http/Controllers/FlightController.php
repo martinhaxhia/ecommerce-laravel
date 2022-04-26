@@ -13,10 +13,7 @@ class FlightController extends Controller
      */
     public function index(Request $request)
     {
-        $name = $request->name;
-        return view('test', [
-            'key' => $name 
-        ]);
+
     }
 
     /**
