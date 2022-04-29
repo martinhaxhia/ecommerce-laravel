@@ -21,3 +21,9 @@ Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+
+
+Route::get('/products', function (){
+    $products = [];
+    return view('products', compact('products'));
+});

@@ -1,27 +1,56 @@
- .navigation{
-     background-color: cornflowerblue;
-     justify-content: right;
-     align-items: center;
-     display: flex;
- }
- .text-2xl{
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color:whitesmoke;
+    overflow: hidden;
+}
 
+/* Style the links inside the navigation bar */
+.topnav a {
+    float:left;
+    display: block;
+    color: black;
     text-align: center;
- }
- .logo{
-    font-size: 22px;
-    padding-right: 800px;
-    display: flex;
-    }
-.logo img{
-    width: 85px;
-    height: 50px;
-    padding-right: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add an active class to highlight the current page */
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+    display: none;
+}
+.products img{
+    width: 300px;
+    height: 300px;
+
+}
+.products{
+    margin-top: 200px;
+    margin-left: 40px;
+    display: inline-block;
+    justify-items: center;
+}
+.cartImg{
+    width: 200px;
+    height: 200px;
+}
+h4{
+    text-align: right;
+    padding-left: 850px;
 }
 .buttons{
     display: flex;
-}
-.text-green-800 {
-    margin-left: 500px;
-    margin-right: 50px;
+    margin-left: 20px;
 }

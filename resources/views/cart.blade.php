@@ -11,84 +11,70 @@
                               <p class="text-green-800">{{ $message }}</p>
                           </div>
                       @endif
-                        <h3 class="text-3xl text-bold">Cart List</h3>
+                        <h3 class="text-3xl text-bold">You have added to Cart </h3>
                       <div class="flex-1">
-                        <table class="w-full text-sm lg:text-base" cellspacing="0">
+                        <table class="table" >
                           @if(!empty($cartItems))
                           <thead>
-
-                            <tr class="h-12 uppercase">
-                              <th class="hidden md:table-cell"></th>
-                              <th class="text-left">Name</th>
-                              <th class="pl-5 text-left lg:text-right lg:pl-0">
-                                <span class="lg:hidden" title="Quantity">Qtd</span>
-                                <span class="hidden lg:inline">Quantity</span>
+                            <tr>
+                              <th>Image</th>
+                              <th>Name</th>
+                              <th>
+                                <span >Quantity</span>
                               </th>
-                              <th class="hidden text-right md:table-cell"> price</th>
-                              <th class="hidden text-right md:table-cell"> Remove </th>
+                              <th> Price</th>
+                                <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
                               @foreach ($cartItems as $item)
                             <tr>
-                              <td class="hidden pb-4 md:table-cell">
-                                <a href="#">
-                                  <img src="{{ $item->attributes->image }}" class="w-20 rounded" alt="Thumbnail">
-                                </a>
+                              <td>
+                                  <img src="{{ $item->attributes->image }}" class="cartImg" alt="Thumbnail">
                               </td>
                               <td>
-                                <a href="#">
-                                  <p class="mb-2 md:ml-4">{{ $item->name }}</p>
-                                  
-                                </a>
+                                  <p >{{ $item->name }}</p>
                               </td>
-                              <td class="justify-center mt-6 md:justify-end md:flex">
-                                <div class="h-10 w-28">
-                                  <div class="relative flex flex-row w-full h-8">
-                                    
+                              <td >
+                                <div >
+                                  <div >
+
                                     <form action="{{ route('cart.update') }}" method="POST">
                                       @csrf
                                       <input type="hidden" name="id" value="{{ $item->id}}" >
-                                    <input type="number" name="quantity" value="{{ $item->quantity }}" 
-                                    class="w-7 h-7 text-center bg-gray-300" />
-                                    <button type="submit" class="px-2 pb-2 ml-2 text-white bg-blue-500">update</button>
+                                    <input type="number" name="quantity" value="{{ $item->quantity }}"
+                                    />
+                                    <button type="submit" >update</button>
                                     </form>
                                   </div>
                                 </div>
                               </td>
-                              <td class="hidden text-right md:table-cell">
-                                <span class="text-sm font-medium lg:text-base">
+                              <td >
+                                <span >
                                     ${{ $item->price }}
                                 </span>
                               </td>
-                              <td class="hidden text-right md:table-cell">
+                              <td >
                                 <form action="{{ route('cart.remove') }}" method="POST">
                                   @csrf
                                   <input type="hidden" value="{{ $item->id }}" name="id">
-                                  <button class="px-4 py-2 text-white bg-red-600">x</button>
+                                  <button >Remove</button>
                               </form>
-                                
+
                               </td>
                             </tr>
                             @endforeach
-                             
+
                           </tbody>
                           @endif
                         </table>
-                       
-                        <div class="buttons">
-                          <form action="{{ route('cart.clear') }}" method="POST">
-                            @csrf
-                            <button class="px-6 py-2 text-red-800 bg-red-300">Remove All Cart</button>
-                          </form>
-                          <form action="{{ route('order.cofirm') }}" method="POST">
-                            @csrf
-                            <button class="px-6 py-2 text-green-800 bg-green-300">Confirm Order</button>
-                          </form>
-                          Total: ${{ Cart::getTotal() }}
-                        </div>
-
-
+                          <div class="buttons">
+                              <form action="{{ route('cart.clear') }}" method="POST">
+                                  @csrf
+                                  <button class="btn btn-warning">Remove All Cart</button>
+                              </form>
+                              <h4> Total: ${{ Cart::getTotal() }}</h4>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -96,4 +82,3 @@
         </main>
     @endsection
 
-    
