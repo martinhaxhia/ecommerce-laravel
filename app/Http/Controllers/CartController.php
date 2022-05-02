@@ -3,18 +3,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CartController extends Controller
-{
-public function cartList()
-{
+class CartController extends Controller{
+
+public function cartList(){
+
 $cartItems = \Cart::getContent();
 // dd($cartItems);
 return view('cart', compact('cartItems'));
 }
 
 
-public function addToCart(Request $request)
-{
+public function addToCart(Request $request){
+
 \Cart::add([
 'id' => $request->id,
 'name' => $request->name,
@@ -29,8 +29,8 @@ session()->flash('success', 'Product is Added to Cart Successfully !');
 return redirect()->route('cart.list');
 }
 
-public function updateCart(Request $request)
-{
+public function updateCart(Request $request){
+
 \Cart::update(
 $request->id,
 [
@@ -46,20 +46,33 @@ session()->flash('success', 'Item Cart is Updated Successfully !');
 return redirect()->route('cart.list');
 }
 
-public function removeCart(Request $request)
-{
+public function removeCart(Request $request){
+
 \Cart::remove($request->id);
 session()->flash('success', 'Item Cart Remove Successfully !');
 
 return redirect()->route('cart.list');
 }
 
-public function clearAllCart()
-{
+public function clearAllCart(){
+
 \Cart::clear();
 
 session()->flash('success', 'All Item Cart Clear Successfully !');
 
 return redirect()->route('cart.list');
+}
+
+public function getTotalQuantity(){
+
+    $items = $this->getContent();
+
+    if ($items->isEmpty()) return 0;
+
+    $count = $items->sum(function ($item) {
+        return $item['quantity'];
+    });
+
+    return $count;
 }
 }
