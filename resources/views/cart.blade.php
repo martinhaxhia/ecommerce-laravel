@@ -35,9 +35,9 @@
                               <td>
                                   <p >{{ $item->name }}</p>
                               </td>
-                              <td >
-                                <div >
-                                  <div >
+                              <td>
+                                <div>
+                                  <div>
 
                                     <form action="{{ route('cart.update') }}" method="POST">
                                       @csrf
