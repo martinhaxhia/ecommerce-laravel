@@ -49,12 +49,12 @@
                                   </div>
                                 </div>
                               </td>
-                              <td >
-                                <span >
+                              <td>
+                                <span>
                                     ${{ $item->price }}
                                 </span>
                               </td>
-                              <td >
+                              <td>
                                 <form action="{{ route('cart.remove') }}" method="POST">
                                   @csrf
                                   <input type="hidden" value="{{ $item->id }}" name="id">

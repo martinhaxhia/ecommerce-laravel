@@ -43,9 +43,9 @@
     display: inline-block;
     justify-items: center;
 }
-.cartImg{
-    width: 200px;
-    height: 200px;
+Img{
+    width: 305px;
+    height: 300px;
 }
 h4{
     text-align: right;
@@ -54,4 +54,7 @@ h4{
 .buttons{
     display: flex;
     margin-left: 20px;
+}
+.card{
+    margin-bottom: 20px;
 }
