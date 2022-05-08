@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,5 +26,10 @@ Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove'
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 //Route::get('insert','ProductsController@insertform');
 //Route::post('create','ProductsController@insert');
-
+Route::get('index', [UserController::class, 'index']);
+Route::get('login', [UserController::class, 'index'])->name('login');
+Route::post('custom-login', [UserController::class, 'customLogin'])->name('login.custom');
+Route::get('registration', [UserController::class, 'registration'])->name('register-user');
+Route::post('custom-registration', [UserController::class, 'customRegistration'])->name('register.custom');
+Route::get('signout', [UserController::class, 'signOut'])->name('signout');
 
