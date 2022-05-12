@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-
 Route::get('/', [ProductController::class, 'productList'])->name('products.list');
 
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
@@ -34,7 +33,6 @@ Route::get('registration', [UserController::class, 'registration'])->name('regis
 Route::post('custom-registration', [UserController::class, 'userCreate'])->name('register.custom');
 Route::get('signout', [UserController::class, 'signOut'])->name('signout');
 
-
 Route::group(['prefix' => 'product'], function (){
     Route::post('/', [ProductController::class, 'store'])->name('product.store');
     Route::get('/new', [ProductController::class, 'create'])->name('product.create');
@@ -42,6 +40,6 @@ Route::group(['prefix' => 'product'], function (){
 
 Route::get('/frontend', 'UserController@frontend');
 Route::get('/email', function (){
-    Mail::to('martin.haxhia@atis.al')->send(new WelcomeMail('userName'));
-    return new WelcomeMail('userName');
+    Mail::to('martin.haxhia@atis.al')->send(new WelcomeMail());
+    return new WelcomeMail();
 });

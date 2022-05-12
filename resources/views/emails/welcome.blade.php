@@ -1,12 +1,11 @@
 @component('mail::message')
-# Introduction
 
-Welcome {{ $user }}
+Welcome {{$name}}
 
 @component('mail::button', ['url' => '/login'])
 Login
 @endcomponent
 
-Thanks,<br>
+Thanks for your visit,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -67,8 +67,9 @@ class UserController extends Controller
 
         $data = $request->all();
         $check = $this->userService->create($data);
-
-        return redirect("/email")->withSuccess('You have signed-in');
+        $name = $data['name'];
+        dd($name);
+        return redirect("/email")->with(['name'=>'$name']);
     }
 
     public function dashboard()
