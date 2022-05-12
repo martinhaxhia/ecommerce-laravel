@@ -14,26 +14,27 @@
 <div  class="bg-white">
     <header>
         <div class="container px-6 py-3 mx-auto">
-
-
             <nav  class="navigation ">
                 <div class="topnav" id="myTopnav">
                     <a href="/" class="active"><i class="fa fa-fw fa-home"></i>Home</a>
+                    @guest
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link" href="{{ route('register-user') }}">Register</a>
+                    @else
                     <a href="{{ route('product.create') }}">Create</a>
                     <a href="#about">Account <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
-                    <a href="{{ route('cart.list') }}"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
-                    {{ Cart::getTotalQuantity()}}
-
+                    <a href="{{ route('cart.list') }}"><i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                        {{ Cart::getTotalQuantity()}}
+                    </a>
+                        <a class="nav-link" href="{{ route('signout') }}">Logout</a>
+                    @endguest
                 </div>
             </nav>
         </div>
     </header>
-
 </div>
-
 @yield('content')
-
 </body>
 </html>
 

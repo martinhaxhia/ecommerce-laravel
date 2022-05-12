@@ -1,57 +1,74 @@
 <?php
+
 namespace App\Http\Controllers;
+
+use Hash;
+use Session;
+
+use App\Http\Requests\StoreUserRequest;
+use App\Services\UserService;
+use App\Http\Requests\LoginUserRequest;
+
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService){
+        $this->userService = $userService;
+    }
+
     public function index()
     {
         return view('user.login');
     }
 
-    public function customLogin(Request $request)
+    public function Login(LoginUserRequest $request)
     {
-        $request->validate([
+        /*$request->validate([
             'email' => 'required',
             'password' => 'required',
-        ]);
+        ]);*/
+
+        $validated = $request->validated();
 
         $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
+            return redirect()->intended('frontend')
                 ->withSuccess('Signed in');
         }
 
-        return redirect("dashboard")->withSuccess('Login details are not valid');
+        return redirect("login")->withSuccess('Login details are not valid');
+
     }
+
+    public function frontend(){
+        return view('frontend');
+    }
+
 
     public function registration()
     {
         return view('user.registration');
     }
 
-    public function customRegistration(Request $request)
+    public function userCreate(StoreUserRequest $request)
     {
-        $request->validate([
+       /* $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-        ]);
+        ]);*/
+
+        $validated = $request->validated();
 
         $data = $request->all();
-        $check = $this->create($data);
+        $check = $this->userService->create($data);
 
-        return redirect("login")->withSuccess('You have signed-in');
-    }
-
-    public function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ]);
+        return redirect("/email")->withSuccess('You have signed-in');
     }
 
     public function dashboard()
