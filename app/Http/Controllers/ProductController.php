@@ -1,10 +1,18 @@
 <?php
 namespace App\Http\Controllers;
+use App\Http\Requests\StoreProductRequest;
+use App\Services\ProductService;
 use App\Models\Product;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    private $productService;
+
+    public function __construct(ProductService $productService){
+        $this->productService = $productService;
+    }
     public function productList()
     {
         $products = Product::all();
@@ -26,25 +34,14 @@ class ProductController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request){
+    public function store(StoreProductRequest $request){
 
-        $request->validate(
-            [
-                'name' => 'required|max:255|min:3',
-                'description' => 'required|max:1000|min:3',
-                'price' => 'required|max:255',
-                'image' => 'required'
-            ]
-        );
 
-        $product = Product::create([
-            'name'=> request('name'),
-            'description'=> request('description'),
-            'price'=> request('price'),
-            'image'=> request('image')
-        ]);
+        $validated = $request->validated();
 
-        $product->save();
+        $data = $request->all();
+        $newProduct = $this->productService->create($data);
+
 
         return redirect()->route('products.list');
 
