@@ -36,12 +36,15 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request){
 
+        $file= $request->file('image');
+        $filename= date('YmdHi').$file->getClientOriginalName();
+        $file-> move(public_path('public/Image'), $filename);
+        $data['image']= $filename;
+        dd($filename);
+        /*   $validated = $request->validated();
 
-        $validated = $request->validated();
-
-        $data = $request->all();
-        $newProduct = $this->productService->create($data);
-
+           $data = $request->all();
+           $newProduct = $this->productService->create($data);*/
 
         return redirect()->route('products.list');
 
