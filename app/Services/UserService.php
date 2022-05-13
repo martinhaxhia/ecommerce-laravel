@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class UserService
 {
@@ -13,10 +15,10 @@ class UserService
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
-
-
     }
 
-
+    public function sendRegistrationMail($user){
+        Mail::to($user->email)->send(new WelcomeMail($user));
+    }
 
 }

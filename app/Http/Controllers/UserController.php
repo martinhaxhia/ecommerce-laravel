@@ -41,7 +41,7 @@ class UserController extends Controller
                 ->withSuccess('Signed in');
         }
 
-        return redirect("login")->withSuccess('Login details are not valid');
+        return redirect("login")->withErrors('Login details are not valid');
 
     }
 
@@ -66,10 +66,11 @@ class UserController extends Controller
         $validated = $request->validated();
 
         $data = $request->all();
-        $check = $this->userService->create($data);
-        $name = $data['name'];
-        dd($name);
-        return redirect("/email")->with(['name'=>'$name']);
+        $newUser = $this->userService->create($data);
+
+        $this->userService->sendRegistrationMail($newUser);
+
+        return redirect("/");
     }
 
     public function dashboard()
