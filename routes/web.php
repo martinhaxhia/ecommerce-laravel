@@ -40,6 +40,6 @@ Route::group(['prefix' => 'product'], function (){
 
 Route::get('/frontend', 'UserController@frontend');
 Route::get('/email', function (){
-    Mail::to('martin.haxhia@atis.al')->send(new WelcomeMail());
-    return new WelcomeMail();
+    Mail::to('martin.haxhia@atis.al')->send(new WelcomeMail('martini'));
+    return new WelcomeMail('martini');
 });

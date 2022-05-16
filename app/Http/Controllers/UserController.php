@@ -68,7 +68,7 @@ class UserController extends Controller
         $data = $request->all();
         $check = $this->userService->create($data);
         $name = $data['name'];
-        dd($name);
+/*        dd($name);*/
         return redirect("/email")->with(['name'=>'$name']);
     }
 

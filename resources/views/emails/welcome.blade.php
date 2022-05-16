@@ -1,6 +1,6 @@
 @component('mail::message')
 
-Welcome {{$name}}
+Welcome {{$user}}
 
 @component('mail::button', ['url' => '/login'])
 Login
