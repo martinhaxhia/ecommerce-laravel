@@ -36,6 +36,8 @@ Route::get('signout', [UserController::class, 'signOut'])->name('signout');
 Route::group(['prefix' => 'product'], function (){
     Route::post('/', [ProductController::class, 'store'])->name('product.store');
     Route::get('/new', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/edit', [ProductController::class, 'edit'])->name('product.edit');
+
 });
 
 Route::get('/frontend', 'UserController@frontend');

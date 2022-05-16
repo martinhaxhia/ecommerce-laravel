@@ -30,7 +30,7 @@
                               @foreach ($cartItems as $item)
                             <tr>
                               <td>
-                                  <img src="{{ $item->attributes->image }}" class="cartImg" alt="Thumbnail">
+                                  <img src="{{ $item->full_image_url }}" class="cartImg" alt="Thumbnail">
                               </td>
                               <td>
                                   <p >{{ $item->name }}</p>

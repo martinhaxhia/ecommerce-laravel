@@ -7,16 +7,20 @@ class ProductService
 {
     public function create(array $data)
     {
-        $imag =$data['image'];
-        $image = $imag->file('image');
-        $filename = time() . '.' . $image->getClientOriginalExtension();
-
         return Product::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'image' => $filename,
+            'image' => $data['image'],
         ]);
+    }
+    public function imageStore(array $data){
+
+        $file = $data->file('image');
+        $filename = date('YmdHi').$file->getClientOriginalName();
+        $file->store('public/products');
+        $image = $file->hashName();
+        return $image;
     }
 
 }

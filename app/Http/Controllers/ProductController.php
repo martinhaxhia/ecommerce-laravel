@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Services\ProductService;
 use App\Models\Product;
-use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,9 +14,9 @@ class ProductController extends Controller
     }
     public function productList()
     {
-        $products = Product::all();
+        $products = Product::latest()->get();
 
-        return view('products', compact('products'));
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -36,15 +35,14 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request){
 
-        $file= $request->file('image');
-        $filename= date('YmdHi').$file->getClientOriginalName();
-        $file-> move(public_path('public/Image'), $filename);
-        $data['image']= $filename;
-        dd($filename);
-        /*   $validated = $request->validated();
+        $file = $request->file('image');
+        $filename = date('YmdHi').$file->getClientOriginalName();
+        $file->store('public/products');
 
-           $data = $request->all();
-           $newProduct = $this->productService->create($data);*/
+        $validated = $request->validated();
+        $data = $request->all();
+        $data['image'] = $file->hashName();
+        $newProduct = $this->productService->create($data);
 
         return redirect()->route('products.list');
 
@@ -62,7 +60,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -72,9 +70,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validated();
+
+        $product->update($request->all());
+
+        return redirect()->route('products.index')
+            ->with('success','Product updated successfully');
     }
 
     /**
