@@ -7,7 +7,7 @@
             @foreach ($products as $product)
                 <div class="col col-md-3">
                     <div class="card">
-                        <img src="{{ url($product->image) }}" alt="" >
+                        <img src="{{$product->full_image_url }}" alt="" >
 
                         <div class="card-body">
                             <h3 class="text-gray-700 uppercase">{{ $product->name }}</h3>
@@ -17,10 +17,13 @@
                                 <input type="hidden" value="{{ $product->id }}" name="id">
                                 <input type="hidden" value="{{ $product->name }}" name="name">
                                 <input type="hidden" value="{{ $product->price }}" name="price">
-                                <input type="hidden" value="{{ $product->image }}"  name="image">
+                                <input type="hidden" value="{{ $product->full_image_url  }}"  name="image">
                                 <input type="hidden" value="1" name="quantity">
                                 <button class="rounded btn btn-success">Add To Cart</button>
                             </form>
+                            <a class="btn btn-warning" href="{{ route('product.edit',$product->id) }}">Edit</a>
+                            <a class="btn btn-danger" href="{{ route('delete',$product->id) }}">Delete</a>
+
                         </div>
                     </div>
 

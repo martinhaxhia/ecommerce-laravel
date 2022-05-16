@@ -14,4 +14,12 @@ class Product extends Model
         'image',
         'description',
     ];
+
+    public function getImageAttribute(){
+        return 'image'.$this->attributes['image'];
+    }
+
+    public function getFullImageUrlAttribute(){
+        return asset('storage/products/'.$this->attributes['image']);
+    }
 }
