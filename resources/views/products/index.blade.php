@@ -22,7 +22,7 @@
                                 <button class="rounded btn btn-success">Add To Cart</button>
                             </form>
                             <a class="btn btn-warning" href="{{ route('product.edit',$product->id) }}">Edit</a>
-                            <a class="btn btn-danger" href="{{ route('delete',$product->id) }}">Delete</a>
+                            <a class="btn btn-danger" href="{{ route('product.destroy',$product->id) }}">Delete</a>
 
                         </div>
                     </div>
