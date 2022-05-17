@@ -66,18 +66,11 @@ class UserController extends Controller
         $validated = $request->validated();
 
         $data = $request->all();
-<<<<<<< HEAD
-        $check = $this->userService->create($data);
-        $name = $data['name'];
-/*        dd($name);*/
-        return redirect("/email")->with(['name'=>'$name']);
-=======
         $newUser = $this->userService->create($data);
 
         $this->userService->sendRegistrationMail($newUser);
 
         return redirect("/");
->>>>>>> 6efe5a0a3d0b88c7768ed79f0f13ef3924cc3cad
     }
 
     public function dashboard()

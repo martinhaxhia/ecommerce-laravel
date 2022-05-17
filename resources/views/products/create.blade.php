@@ -5,7 +5,7 @@
         @if($errors->any())
             {!! implode('', $errors->all('<div>:message</div>')) !!}
         @endif
-        <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('products.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 has-validation">
                 <label for="name" class="form-label">Product name</label>
