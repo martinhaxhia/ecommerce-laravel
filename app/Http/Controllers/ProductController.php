@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -43,12 +44,13 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request){
 
         $file = $request->file('image');
-        $filename = date('YmdHi').$file->getClientOriginalName();
-        $file->store('public/products');
 
         $validated = $request->validated();
+
         $data = $request->all();
-        $data['image'] = $file->hashName();
+
+        $data['image'] = $this->productService->imageStore($file);
+
         $newProduct = $this->productService->create($data);
 
         return redirect()->route('products.index');
@@ -74,15 +76,22 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UpdateProductRequest $request
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
+        if ($request->has('image')){
+            $file = $request->file('image');
+            $data['image'] = $this->productService->imageStore($file);
+        }
         $validated = $request->validated();
 
-        $product->update($request->all());
+        $data = $request->all();
+
+
+        $product = $this->productService->update($data);
 
         return redirect()->route('products.index')
             ->with('success','Product updated successfully');
