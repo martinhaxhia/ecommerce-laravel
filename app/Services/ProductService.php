@@ -34,4 +34,10 @@ class ProductService
         return $image;
     }
 
+    public function imageUpdate($file){
+        $file->store('public/products');
+        $image = $file->hashName();
+        return $image;
+    }
+
 }

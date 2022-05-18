@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
 use App\Models\Product;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -84,14 +85,16 @@ class ProductController extends Controller
     {
         if ($request->has('image')){
             $file = $request->file('image');
-            $data['image'] = $this->productService->imageStore($file);
+            $data['image'] = $this->productService->imageUpdate($file);
+        }else{
+            unset($request['image']);
         }
         $validated = $request->validated();
 
         $data = $request->all();
 
 
-        $product = $this->productService->update($data);
+        $newProduct = $this->productService->update($data);
 
         return redirect()->route('products.index')
             ->with('success','Product updated successfully');
