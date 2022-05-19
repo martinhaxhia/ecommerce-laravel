@@ -16,28 +16,15 @@ class ProductService
         ]);
     }
 
-    public function update(array $data)
+    public function updateProduct($product, array $data)
     {
-        return  Product::update([
+        return $product->update([
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'image' => $data['image'],
-
         ]);
     }
 
-    public function imageStore($file){
 
-        $file->store('public/products');
-        $image = $file->hashName();
-        return $image;
-    }
-
-    public function imageUpdate($file){
-        $file->store('public/products');
-        $image = $file->hashName();
-        return $image;
-    }
 
 }

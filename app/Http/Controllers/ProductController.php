@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+
+use App\Services\MediaService;
 use App\Services\ProductService;
+
 use App\Models\Product;
 
 use Illuminate\Http\Request;
@@ -12,12 +15,14 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     private $productService;
+    private $mediaService;
 
     /**
      * @param ProductService $productService
      */
-    public function __construct(ProductService $productService){
+    public function __construct(ProductService $productService,MediaService $mediaService){
         $this->productService = $productService;
+        $this->mediaService = $mediaService;
     }
 
     /**
@@ -50,9 +55,9 @@ class ProductController extends Controller
 
         $data = $request->all();
 
-        $data['image'] = $this->productService->imageStore($file);
+        $data['image'] = $this->mediaService->imageStore($file);
 
-        $newProduct = $this->productService->create($data);
+        $product = $this->productService->create($data);
 
         return redirect()->route('products.index');
 
@@ -83,18 +88,16 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        if ($request->has('image')){
+        if ($request->hasFile('image')){
             $file = $request->file('image');
-            $data['image'] = $this->productService->imageUpdate($file);
-        }else{
-            unset($request['image']);
+            $image = $this->mediaService->imageUpdate($file);
         }
+
         $validated = $request->validated();
 
         $data = $request->all();
 
-
-        $newProduct = $this->productService->update($data);
+        $newProduct = $this->productService->updateProduct($product, $data);
 
         return redirect()->route('products.index')
             ->with('success','Product updated successfully');
