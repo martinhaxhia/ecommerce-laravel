@@ -102,7 +102,7 @@ class ProductController extends Controller
             return redirect()->route('products.index')
                 ->with('success', 'Product updated successfully');
         }else{
-
+            dd($product->image);
             $validated = $request->validated();
 
             $data = $request->all();
@@ -111,12 +111,14 @@ class ProductController extends Controller
             return redirect()->route('products.index')
                 ->with('success', 'Product updated successfully');
 
-
         }
-
-
     }
+    public function delete($id)
+    {
+        $product = Product::find($id);
 
+        return view('products.delete', compact('product'));
+    }
     /**
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
