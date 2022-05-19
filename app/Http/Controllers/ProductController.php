@@ -56,7 +56,6 @@ class ProductController extends Controller
         $data = $request->all();
 
         $data['image'] = $this->mediaService->imageStore($file);
-
         $product = $this->productService->create($data);
 
         return redirect()->route('products.index');
@@ -88,19 +87,34 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        if ($request->hasFile('image')){
+        if ($request->has('image')) {
+
             $file = $request->file('image');
-            $image = $this->mediaService->imageUpdate($file);
+
+            $validated = $request->validated();
+
+            $data = $request->all();
+
+            $data['image'] = $this->mediaService->imageUpdate($file);
+
+            $newProduct = $this->productService->updateProduct($product, $data);
+
+            return redirect()->route('products.index')
+                ->with('success', 'Product updated successfully');
+        }else{
+
+            $validated = $request->validated();
+
+            $data = $request->all();
+            $newProduct = $this->productService->updateProduct($product, $data);
+
+            return redirect()->route('products.index')
+                ->with('success', 'Product updated successfully');
+
+
         }
 
-        $validated = $request->validated();
 
-        $data = $request->all();
-
-        $newProduct = $this->productService->updateProduct($product, $data);
-
-        return redirect()->route('products.index')
-            ->with('success','Product updated successfully');
     }
 
     /**

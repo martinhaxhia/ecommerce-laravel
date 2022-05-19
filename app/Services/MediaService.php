@@ -14,8 +14,8 @@ class MediaService
 
     public function imageUpdate($file)
     {
-        $file->storeAs('public/products');
         $image = $file->hashName();
+        $file->storeAs('public/products',$image);
         return $image;
-    }
+   }
 }
