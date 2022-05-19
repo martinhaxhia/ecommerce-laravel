@@ -21,7 +21,7 @@
                                 <button class="rounded btn btn-success">Add To Cart</button>
                             </form>
                             <a class="btn btn-warning" href="{{ route('products.edit',$product->id) }}">Edit</a>
-                            <a data-toggle="modal" id="smallButton" data-target="#smallModal" href="{{ route('delete', $product->id) }}" title="Delete Product">
+                            <a class="btn btn-danger" data-toggle="modal" id="smallButton" data-target="#smallModal" href="{{ route('delete', $product->id) }}" title="Delete Product">
                                  Delete
                             </a>
                         </div>
