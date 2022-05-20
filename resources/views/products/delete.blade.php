@@ -1,4 +1,5 @@
 {{-- !-- Delete Warning Modal -->  --}}
+
 <form action="{{ route('products.destroy', $product->id) }}" method="post">
     <div class="modal-body">
         @csrf

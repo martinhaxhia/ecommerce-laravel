@@ -63,10 +63,7 @@ class UserController extends Controller
             'password' => 'required|min:6',
         ]);*/
 
-        $validated = $request->validated();
-
-        $data = $request->all();
-        $newUser = $this->userService->create($data);
+        $newUser = $this->userService->create($request->validated());
 
         $this->userService->sendRegistrationMail($newUser);
 

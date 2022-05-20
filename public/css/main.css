@@ -32,20 +32,15 @@
 .topnav .icon {
     display: none;
 }
-img{
-    width: 305px;
-    height: 300px;
 
-}
 .products{
     margin-top: 200px;
     margin-left: 40px;
     display: inline-block;
     justify-items: center;
 }
-Img{
-    width: 305px;
-    height: 300px;
+img{
+    min-height: 300px;
 }
 h4{
     text-align: right;

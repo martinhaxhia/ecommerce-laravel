@@ -102,7 +102,6 @@ class ProductController extends Controller
             return redirect()->route('products.index')
                 ->with('success', 'Product updated successfully');
         }else{
-            dd($product->image);
             $validated = $request->validated();
 
             $data = $request->all();

@@ -18,6 +18,10 @@ class ProductService
 
     public function updateProduct($product, array $data)
     {
+        if (!isset($data['image'])){
+            $data['image'] = $product->image;
+        }
+
         return $product->update([
             'name' => $data['name'],
             'description' => $data['description'],
