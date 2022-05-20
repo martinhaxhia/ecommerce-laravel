@@ -14,6 +14,9 @@ class Product extends Model
         'image',
         'description',
     ];
+    /**
+     * @var mixed
+     */
 
     public function getImageAttribute(){
         return 'image'.$this->attributes['image'];

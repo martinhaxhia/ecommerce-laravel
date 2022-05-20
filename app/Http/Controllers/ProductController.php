@@ -3,19 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+
+use App\Services\MediaService;
 use App\Services\ProductService;
+
 use App\Models\Product;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     private $productService;
+    private $mediaService;
 
     /**
      * @param ProductService $productService
      */
-    public function __construct(ProductService $productService){
+    public function __construct(ProductService $productService,MediaService $mediaService){
         $this->productService = $productService;
+        $this->mediaService = $mediaService;
     }
 
     /**
@@ -43,13 +50,13 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request){
 
         $file = $request->file('image');
-        $filename = date('YmdHi').$file->getClientOriginalName();
-        $file->store('public/products');
 
         $validated = $request->validated();
+
         $data = $request->all();
-        $data['image'] = $file->hashName();
-        $newProduct = $this->productService->create($data);
+
+        $data['image'] = $this->mediaService->imageStore($file);
+        $product = $this->productService->create($data);
 
         return redirect()->route('products.index');
 
@@ -74,20 +81,43 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UpdateProductRequest $request
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $validated = $request->validated();
+        if ($request->has('image')) {
 
-        $product->update($request->all());
+            $file = $request->file('image');
 
-        return redirect()->route('products.index')
-            ->with('success','Product updated successfully');
+            $validated = $request->validated();
+
+            $data = $request->all();
+
+            $data['image'] = $this->mediaService->imageUpdate($file);
+
+            $newProduct = $this->productService->updateProduct($product, $data);
+
+            return redirect()->route('products.index')
+                ->with('success', 'Product updated successfully');
+        }else{
+            $validated = $request->validated();
+
+            $data = $request->all();
+            $newProduct = $this->productService->updateProduct($product, $data);
+
+            return redirect()->route('products.index')
+                ->with('success', 'Product updated successfully');
+
+        }
     }
+    public function delete($id)
+    {
+        $product = Product::find($id);
 
+        return view('products.delete', compact('product'));
+    }
     /**
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse

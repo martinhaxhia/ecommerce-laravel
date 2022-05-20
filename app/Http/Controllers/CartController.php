@@ -25,7 +25,7 @@ public function addToCart(Request $request){
 ]);
 session()->flash('success', 'Product is Added to Cart Successfully !');
 
-return redirect()->route('products.list');
+return redirect()->route('products.index');
 }
 
 public function updateCart(Request $request){
@@ -59,7 +59,7 @@ public function clearAllCart(){
 
 session()->flash('success', 'All Item Cart Clear Successfully !');
 
-return redirect()->route('products.list');
+return redirect()->route('products.index');
 }
 
 public function getTotalQuantity(){
