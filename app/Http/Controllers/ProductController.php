@@ -10,6 +10,7 @@ use App\Services\ProductService;
 
 use App\Models\Product;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -85,8 +86,11 @@ class ProductController extends Controller
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product)
+  /*  public function update(UpdateProductRequest $request, Product $product)
     {
+
+
+
         if ($request->has('image')) {
 
             $file = $request->file('image');
@@ -111,13 +115,49 @@ class ProductController extends Controller
                 ->with('success', 'Product updated successfully');
 
         }
+    }*/
+
+    public function update(UpdateProductRequest $request, Product $product)
+    {
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+
+            $validated = $request->validated();
+
+            $data = $request->all();
+
+            $data['image'] = $this->mediaService->imageUpdate($file);
+            try {
+                Storage::delete('public/products' . $product->image);
+
+                $newProduct = $this->productService->updateProduct($product, $data);
+
+                return redirect()->route('products.index')
+                    ->with('success', 'Product updated successfully');
+
+            } catch (\Throwable $th) {
+
+            }
+        } else {
+
+            $data = $request->all();
+
+            $newProduct = $this->productService->updateProduct($product, $data);
+
+            return redirect()->route('products.index')
+                ->with('success', 'Product updated successfully');
+        }
+
     }
+
     public function delete($id)
     {
         $product = Product::find($id);
 
         return view('products.delete', compact('product'));
     }
+
     /**
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse

@@ -9,21 +9,21 @@
             @csrf
             <div class="mb-3 has-validation">
                 <label for="name" class="form-label">Product name</label>
-                <input name="name"  type="text" class="form-control" id="name" aria-describedby="name"/>
+                <input name="name"  type="text" class="form-control" id="name" value="{{ old('name') }}" aria-describedby="name"/>
                 @error('name')
                 <div class="invalid">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Product price</label>
-                <input name="price"  type="number" class="form-control" id="price" aria-describedby="price"/>
+                <input name="price"  type="number" class="form-control" id="price" value="{{ old('price') }}" aria-describedby="price"/>
                 @error('price')
                 <div class="invalid">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Product description</label>
-                <textarea name="description"  type="textarea" class="form-control" id="description" aria-describedby="description"></textarea>
+                <textarea name="description"  type="textarea" class="form-control" id="description" value="{{ old('description') }}" aria-describedby="description"></textarea>
                 @error('description')
                 <div class="invalid">{{ $message }}</div>
                 @enderror

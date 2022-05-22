@@ -19,7 +19,7 @@ class Product extends Model
      */
 
     public function getImageAttribute(){
-        return 'image'.$this->attributes['image'];
+        return $this->attributes['image'];
     }
 
     public function getFullImageUrlAttribute(){
