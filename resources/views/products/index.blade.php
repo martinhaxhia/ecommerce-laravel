@@ -14,7 +14,7 @@
                             <h3 class="text-gray-700 uppercase">{{ $product->name }}</h3>
                             <strong class="mt-2">${{ $product->price }}</strong>
                             @else
-                                <div class="col-lg-4">
+                                <div class="col-md-6 col-lg-4">
                                     <div class="card">
                                         <img src="{{$product->full_image_url }}" alt="" >
                                         <div class="card-body">
@@ -30,9 +30,29 @@
                                                     <button class="rounded btn btn-success">Add To Cart</button>
                                                 </form>
                                                 <a class="btn btn-warning" href="{{ route('products.edit',$product->id) }}">Edit</a>
-                                                <a class="btn btn-danger" data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('delete', $product->id) }}" title="Delete Product">
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" title="Delete Product">
                                                      Delete
                                                 </a>
+
+                                            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Are you sure you want to delete {{ $product->name }} ?</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <form action="{{ route('products.destroy', $product->id) }}" method="post">
+
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-danger">Yes, Delete Product</button>
+                                                        </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                             @endguest
                         </div>
@@ -41,48 +61,5 @@
             @endforeach
         </div>
     </div>
-    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="smallBody">
-                    <div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // display a modal (small modal)
-        $(document).on('click', '#smallButton', function(event) {
-            event.preventDefault();
-            let href = $(this).attr('data-attr');
-            $.ajax({
-                url: href
-                , beforeSend: function() {
-                    $('#loader').show();
-                },
-                // return the result
-                success: function(result) {
-                    $('#smallModal').modal("show");
-                    $('#smallBody').html(result).show();
-                }
-                , complete: function() {
-                    $('#loader').hide();
-                }
-                , error: function(jqXHR, testStatus, error) {
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').hide();
-                }
-                , timeout: 8000
-            })
-        });
-
-    </script>
 @endsection

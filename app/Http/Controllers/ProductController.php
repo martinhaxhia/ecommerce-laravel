@@ -128,8 +128,10 @@ class ProductController extends Controller
             $data = $request->all();
 
             $data['image'] = $this->mediaService->imageUpdate($file);
+
             try {
-                Storage::delete('public/products' . $product->image);
+
+                Storage::delete('public/products/' . $product->image);
 
                 $newProduct = $this->productService->updateProduct($product, $data);
 
