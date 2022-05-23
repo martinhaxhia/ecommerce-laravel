@@ -27,10 +27,6 @@ class UserController extends Controller
 
     public function Login(LoginUserRequest $request)
     {
-        /*$request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);*/
 
         $validated = $request->validated();
 
@@ -57,17 +53,12 @@ class UserController extends Controller
 
     public function userCreate(StoreUserRequest $request)
     {
-       /* $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);*/
 
         $newUser = $this->userService->create($request->validated());
 
         $this->userService->sendRegistrationMail($newUser);
 
-        return redirect("/");
+        return redirect("/login");
     }
 
     public function dashboard()

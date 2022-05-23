@@ -86,37 +86,6 @@ class ProductController extends Controller
      * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
-  /*  public function update(UpdateProductRequest $request, Product $product)
-    {
-
-
-
-        if ($request->has('image')) {
-
-            $file = $request->file('image');
-
-            $validated = $request->validated();
-
-            $data = $request->all();
-
-            $data['image'] = $this->mediaService->imageUpdate($file);
-
-            $newProduct = $this->productService->updateProduct($product, $data);
-
-            return redirect()->route('products.index')
-                ->with('success', 'Product updated successfully');
-        }else{
-            $validated = $request->validated();
-
-            $data = $request->all();
-            $newProduct = $this->productService->updateProduct($product, $data);
-
-            return redirect()->route('products.index')
-                ->with('success', 'Product updated successfully');
-
-        }
-    }*/
-
     public function update(UpdateProductRequest $request, Product $product)
     {
         if ($request->hasFile('image')) {

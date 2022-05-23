@@ -39,8 +39,8 @@
     display: inline-block;
     justify-items: center;
 }
-img{
-    min-height: 300px;
+.image{
+    min-height:340px;
 }
 h4{
     text-align: right;

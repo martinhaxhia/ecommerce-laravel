@@ -14,13 +14,13 @@ class CreateMediaTable extends Migration
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->id();
-            $table->id ('product_id');
-            $table->text('name');
-            $table->text('path');
-            $table->text('mimes');
-            $table->timestamps();
 
+                $table->id();
+                $table->string('name');
+                $table->string('hash name');
+                $table->string('mimes');
+                $table->string('path');
+                $table->timestamps();
 
         });
     }
