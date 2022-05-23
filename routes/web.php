@@ -3,6 +3,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Mail\WelcomeMail;
+use Brian2694\Toastr\Toastr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 

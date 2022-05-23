@@ -9,7 +9,9 @@ use App\Services\MediaService;
 use App\Services\ProductService;
 
 use App\Models\Product;
+use App\Models\Media;
 
+use Brian2694\Toastr\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -31,6 +33,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+    /*    $productId = Product::get('id');
+        $image = Media::where('product_id' ,$productId )->get('hash_name');*/
+
         $products = Product::latest()->get();
 
         return view('products.index', compact('products'));
@@ -56,7 +61,8 @@ class ProductController extends Controller
 
         $data = $request->all();
 
-        $data['image'] = $this->mediaService->imageStore($file);
+        $data['image'] = $file;
+
         $product = $this->productService->create($data);
 
         return redirect()->route('products.index');

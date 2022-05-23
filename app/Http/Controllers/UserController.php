@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Brian2694\Toastr\Toastr;
 use Hash;
 use Session;
 
@@ -35,6 +36,9 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->intended('frontend')
                 ->withSuccess('Signed in');
+
+            Toastr::success('Error Message');
+
         }
 
         return redirect("login")->withErrors('Login details are not valid');
