@@ -16,7 +16,7 @@
                             @else
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card">
-                                        <img src="{{$product->full_image_url }}" alt="" >
+                                        <img class="image" src="{{$product->full_image_url }}" alt="" >
                                         <div class="card-body">
                                             <h3 class="text-gray-700 uppercase">{{ $product->name }}</h3>
                                             <strong class="mt-2">${{ $product->price }}</strong>

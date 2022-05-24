@@ -41,6 +41,7 @@
 }
 .image{
     min-height:340px;
+    object-fit: cover;
 }
 h4{
     text-align: right;
