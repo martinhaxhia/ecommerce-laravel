@@ -33,11 +33,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-    /*    $productId = Product::get('id');
-        $image = Media::where('product_id' ,$productId )->get('hash_name');*/
-
         $products = Product::latest()->get();
-
         return view('products.index', compact('products'));
     }
 
@@ -106,7 +102,7 @@ class ProductController extends Controller
 
             try {
 
-                Storage::delete('public/products/' . $product->image);
+                $newImage = $this->mediaService->delete($product);
 
                 $newProduct = $this->productService->updateProduct($product, $data);
 

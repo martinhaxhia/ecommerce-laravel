@@ -40,7 +40,9 @@
     justify-items: center;
 }
 .image{
-    min-height:340px;
+
+    min-height:320px;
+    object-fit: cover;
 }
 h4{
     text-align: right;

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'price',
@@ -23,6 +24,18 @@ class Product extends Model
     }
 
     public function getFullImageUrlAttribute(){
-        return asset('storage/products/'.$this->attributes['image']);
+        if (!isset($this->featured_image)){
+            return  '';
+        }
+        return asset('storage/products/'.$this->featured_image->hash_name);
     }
+
+    public function images(){
+        return $this->hasMany(Media::class, 'product_id');
+    }
+
+    public function getFeaturedImageAttribute(){
+        return $this->images()->first();
+    }
+
 }
