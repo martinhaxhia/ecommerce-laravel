@@ -15,16 +15,15 @@ class ProductService
     }
     public function create(array $data)
     {
-        Product::create([
+        $product = Product::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
+
         ]);
         $file = $data['image'];
+        $image = $this->mediaService->create($file, $product->id);
 
-        $productId = DB::getPdo()->lastInsertId();
-
-        $image = $this->mediaService->create($file,$productId);
     }
 
     public function updateProduct($product, array $data)

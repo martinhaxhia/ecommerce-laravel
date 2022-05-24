@@ -5,39 +5,37 @@ namespace App\Services;
 
 use App\Models\Media;
 
+use Illuminate\Support\Facades\Storage;
+
 class MediaService
 {
+    protected $path = 'public/products';
+
     public function imageStore($file)
     {
-        $file->store('public/products');
+        $file->store($this->path);
 
-        $image = $file->hashName();
+        return $file->hashName();
 
-        return $image;
     }
 
     public function imageUpdate($file)
     {
         $image = $file->hashName();
 
-        $file->storeAs('public/products', $image);
+        $file->storeAs($this->path , $image);
 
         return $image;
     }
-   public function create($file,$productId)
-   {
-       $media['name'] = $file->getClientOriginalName();
-       $media['hash_name'] = $file->hashName();
-       $media['mime'] = $file->getClientMimeType();
-       $media['path'] = $file->getRealPath();
 
+    public function create($file, $productId)
+    {
         Media::create([
-
-            'product_id'=> $productId,
-           'name' => $media['name'],
-           'hash_name' => $media['hash_name'],
-           'mimes' => $media['mime'],
-           'path' => $media['path'],
+           'product_id'=> $productId,
+           'name' => $file->getClientOriginalName(),
+           'hash_name' => $file->hashName(),
+           'mimes' => $file->getClientMimeType(),
+           'path' => $file->getRealPath(),
        ]);
 
      return $this->imageStore($file);
@@ -46,6 +44,12 @@ class MediaService
 
    public function update()
    {
+       //
+   }
+
+   public function delete($product)
+   {
+       Storage::delete($this->path . '/' . $product->image);
 
 
    }

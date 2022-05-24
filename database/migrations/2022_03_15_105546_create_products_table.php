@@ -13,6 +13,7 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('products'))
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -28,9 +29,12 @@ class CreateProductsTable extends Migration
      *
      * @return void
      */
-   /*  public function down()
+   public function down()
     {
+        Schema::table('order_items', function (Blueprint $table) {
+            $table->dropForeign('order_items_product_id_foreign');
+        });
         Schema::dropIfExists('products');
-    } */
+    }
 }
 

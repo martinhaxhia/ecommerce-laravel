@@ -39,18 +39,22 @@
     display: inline-block;
     justify-items: center;
 }
+
 .image{
     min-height:340px;
     object-fit: cover;
 }
+
 h4{
     text-align: right;
     padding-left: 850px;
 }
+
 .buttons{
     display: flex;
     margin-left: 20px;
 }
+
 .card{
     margin-bottom: 20px;
 }
