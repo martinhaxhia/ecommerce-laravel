@@ -12,11 +12,13 @@ use App\Models\Product;
 use App\Models\Media;
 
 use Brian2694\Toastr\Toastr;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
     private $productService;
     private $mediaService;
 
