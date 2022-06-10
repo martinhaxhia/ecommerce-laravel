@@ -22,8 +22,9 @@
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                         <a class="nav-link" href="{{ route('register-user') }}">Register</a>
                     @else
-                    <a href="{{ route('products.create') }}">Create</a>
-                    <a href="#about">Account <i class="fa fa-user" aria-hidden="true"></i>
+                        <a href="{{ route('products.create') }}">Create</a>
+                        <a href="{{ route('products.restoreAll') }}" >Restore Products</a>
+                        <a href="#about">Account <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
                     <a href="{{ route('cart.list') }}"><i class="fa fa-cart-plus" aria-hidden="true"> </i>
                         {{ Cart::getTotalQuantity()}}

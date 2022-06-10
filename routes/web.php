@@ -31,12 +31,7 @@ Route::get('registration', [UserController::class, 'registration'])->name('regis
 Route::post('custom-registration', [UserController::class, 'userCreate'])->name('register.custom');
 Route::get('signout', [UserController::class, 'signOut'])->name('signout');
 
-/*Route::group(['prefix' => 'product'], function (){
-    Route::post('/', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/new', [ProductController::class, 'create'])->name('product.create');
-    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::delete('/delete', [ProductController::class, 'destroy'])->name('delete');
-});*/
+Route::get('restoreAll', [ProductController::class, 'restoreAll'])->name('products.restoreAll');
 Route::get('delete/{id}',[ProductController::class,'delete'])->name('delete');
 Route::resource('products', 'ProductController');
 

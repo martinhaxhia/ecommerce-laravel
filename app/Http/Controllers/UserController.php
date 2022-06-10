@@ -49,7 +49,6 @@ class UserController extends Controller
         return view('frontend');
     }
 
-
     public function registration()
     {
         return view('user.registration');
@@ -57,10 +56,15 @@ class UserController extends Controller
 
     public function userCreate(StoreUserRequest $request)
     {
+        $file = $request->file('image');
 
-        $newUser = $this->userService->create($request->validated());
+        $validated = $request->validated();
 
-        $this->userService->sendRegistrationMail($newUser);
+        $data = $request->all();
+
+        $data['image'] = $file;
+
+        $newUser = $this->userService->create($data);
 
         return redirect("/login");
     }

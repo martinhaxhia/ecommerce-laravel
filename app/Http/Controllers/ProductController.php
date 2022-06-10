@@ -25,7 +25,8 @@ class ProductController extends Controller
     /**
      * @param ProductService $productService
      */
-    public function __construct(ProductService $productService,MediaService $mediaService){
+    public function __construct(ProductService $productService,MediaService $mediaService)
+    {
         $this->productService = $productService;
         $this->mediaService = $mediaService;
     }
@@ -51,7 +52,8 @@ class ProductController extends Controller
      * @param StoreProductRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreProductRequest $request){
+    public function store(StoreProductRequest $request)
+    {
 
         $file = $request->file('image');
 
@@ -126,6 +128,10 @@ class ProductController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function delete($id)
     {
         $product = Product::find($id);
@@ -143,6 +149,29 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('success','Product deleted successfully');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore($id)
+    {
+        Product::withTrashed()->find($id)->restore();
+
+        return back();
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function restoreAll()
+    {
+        Product::onlyTrashed()->restore();
+
+        return back();
     }
 
 }

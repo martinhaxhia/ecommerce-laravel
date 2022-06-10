@@ -28,7 +28,7 @@ class MediaService
         return $image;
     }
 
-    public function create($file, $productId)
+    public function productCreate($file, $productId)
     {
         Media::create([
            'product_id'=> $productId,
@@ -41,6 +41,19 @@ class MediaService
      return $this->imageStore($file);
 
    }
+    public function userCreate($file, $userId)
+    {
+        Media::create([
+            'user_id'=> $userId,
+            'name' => $file->getClientOriginalName(),
+            'hash_name' => $file->hashName(),
+            'mimes' => $file->getClientMimeType(),
+            'path' => $file->getRealPath(),
+        ]);
+
+        return $this->imageStore($file);
+
+    }
 
    public function update()
    {
@@ -49,8 +62,8 @@ class MediaService
 
    public function delete($product)
    {
-       Storage::delete($this->path . '/' . $product->image);
 
+       Storage::delete($this->path . '/' . $product->image);
 
    }
 }

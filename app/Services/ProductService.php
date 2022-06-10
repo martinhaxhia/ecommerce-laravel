@@ -22,7 +22,7 @@ class ProductService
 
         ]);
         $file = $data['image'];
-        $image = $this->mediaService->create($file, $product->id);
+        $image = $this->mediaService->productCreate($file, $product->id);
 
     }
 
