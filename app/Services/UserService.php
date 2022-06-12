@@ -28,11 +28,11 @@ class UserService
         $file = $data['image'];
         $image = $this->mediaService->userCreate($file, $user->id);
 
-        return $this->sendRegistrationMail($user);
+/*        return $this->sendRegistrationMail($user);*/
     }
 
-    public function sendRegistrationMail($user){
+   /* public function sendRegistrationMail($user){
         Mail::to($user->email)->send(new WelcomeMail($user));
-    }
+    }*/
 
 }
