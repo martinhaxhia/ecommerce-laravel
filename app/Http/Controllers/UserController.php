@@ -20,7 +20,6 @@ class UserController extends Controller
     public function __construct(UserService $userService){
         $this->userService = $userService;
     }
-
     public function index()
     {
         return view('user.login');
