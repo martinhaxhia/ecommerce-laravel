@@ -74,8 +74,8 @@ class ProductController extends Controller
      */
     public function show()
     {
-        $trashed = Product::onlyTrashed()->get();
         $products = Product::get();
+        $trashed = Product::onlyTrashed()->get();
         return view('admin.products', compact('products',"trashed"));
     }
 

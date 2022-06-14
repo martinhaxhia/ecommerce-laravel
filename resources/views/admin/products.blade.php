@@ -38,29 +38,29 @@
                                         </td>
                                         <td>
                                     <a class="btn btn-warning" href="{{ route('products.edit',$item->id) }}">Edit</a>
-                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" title="Delete Product">
-                                        Delete
-                                    </a>
-                                        </td>
-                                    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Are you sure you want to delete {{ $item->name }} ?</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form action="{{ route('products.destroy', $item->id) }}" method="post">
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" title="Delete Product">
+                                                Delete
+                                            </a>
 
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="submit" class="btn btn-danger">Yes, Delete Product</button>
-                                                    </form>
+                                            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Are you sure you want to delete {{ $item->name }} ?</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ route('products.destroy', $item->id) }}" method="post">
+
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                <button type="submit" class="btn btn-danger">Yes, Delete Product</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
                                     </tr>
                                 @endforeach
                                 </tbody>
