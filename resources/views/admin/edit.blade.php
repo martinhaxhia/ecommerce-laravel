@@ -1,7 +1,7 @@
-@extends('frontend')
+@extends('admin.dashboard')
 
 @section('content')
-    <div class="row" style="margin-bottom: 20px;margin-left: 265px;">
+    <div class="row" >
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h3>Edit Product</h3>

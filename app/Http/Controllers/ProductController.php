@@ -45,16 +45,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return  view ('products.create');
+        return  view ('admin.create');
     }
 
     /**
      * @param StoreProductRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function store(StoreProductRequest $request)
     {
-
         $file = $request->file('image');
 
         $validated = $request->validated();
@@ -65,17 +65,18 @@ class ProductController extends Controller
 
         $product = $this->productService->create($data);
 
-        return redirect()->route('products.index');
+        return back();
 
     }
 
     /**
-     * @param $id
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $trashed = Product::onlyTrashed()->get();
+        $products = Product::get();
+        return view('admin.products', compact('products',"trashed"));
     }
 
     /**
@@ -84,7 +85,7 @@ class ProductController extends Controller
      */
     public function edit( Product $product)
     {
-        return view('products.edit',compact('product'));
+        return view('admin.edit',compact('product'));
     }
 
     /**
@@ -110,8 +111,8 @@ class ProductController extends Controller
 
                 $newProduct = $this->productService->updateProduct($product, $data);
 
-                return redirect()->route('products.index')
-                    ->with('success', 'Product updated successfully');
+                return back();
+
 
             } catch (\Throwable $th) {
 
@@ -122,8 +123,8 @@ class ProductController extends Controller
 
             $newProduct = $this->productService->updateProduct($product, $data);
 
-            return redirect()->route('products.index')
-                ->with('success', 'Product updated successfully');
+            return back();
+
         }
 
     }

@@ -1,6 +1,13 @@
-@extends('frontend')
+@extends('admin.dashboard')
 
 @section('content')
+    <div class="row" >
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h3>Create Product</h3>
+            </div>
+        </div>
+    </div>
     <div class="container">
         @if($errors->any())
             {!! implode('', $errors->all('<div>:message</div>')) !!}

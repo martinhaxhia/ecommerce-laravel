@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Brian2694\Toastr\Toastr;
 use Hash;
 use Session;
@@ -24,7 +25,11 @@ class UserController extends Controller
     {
         return view('user.login');
     }
-
+    public function show()
+    {
+        $users = User::latest()->get();
+        return view('admin.customers', compact('users'));
+    }
     public function Login(LoginUserRequest $request)
     {
 

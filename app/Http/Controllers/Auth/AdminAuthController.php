@@ -12,6 +12,7 @@ use App\Model\Admin;
 
 class AdminAuthController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
