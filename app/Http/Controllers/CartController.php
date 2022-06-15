@@ -1,77 +1,90 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CartController extends Controller{
+class CartController extends Controller
+{
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function cart()
+    {
+        $products = Product::all();
 
-public function cartList(){
+        return view('products.cart', compact('products'));
+    }
 
-$cartItems = \Cart::getContent();
-// dd($cartItems);
-return view('cart', compact('cartItems'));
-}
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);
 
+        $cart = session()->get('cart', []);
 
-public function addToCart(Request $request){
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+            ];
+        }
 
-\Cart::add([
-'id' => $request->id,
-'name' => $request->name,
-'price' => $request->price,
-'quantity' => $request->quantity,
-'attributes' => array(
-)
-]);
-session()->flash('success', 'Product is Added to Cart Successfully !');
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
 
-return redirect()->route('products.index');
-}
+    /**
+     * Write code on Method
+     *
+     */
+    public function updateCart(Request $request)
+    {
 
-public function updateCart(Request $request){
+        $allCartProducts = $request->products;
+        $cart = session()->get('cart', []);
 
-\Cart::update(
-$request->id,
-[
-'quantity' => [
-'relative' => false,
-'value' => $request->quantity
-],
-]
-);
+        foreach ($allCartProducts as $id => $product){
+            $cart[$id]['quantity'] = $product['quantity'];
+        }
 
-session()->flash('success', 'Item Cart is Updated Successfully !');
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Cart is  saved!');
+    }
 
-return redirect()->route('cart.list');
-}
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove($id)
+    {
+        $cart = session()->pull('cart', []);
+        unset($cart[$id]);
 
-public function removeCart(Request $request){
+        session()->put('cart', $cart);
 
-\Cart::remove($request->id);
-session()->flash('success', 'Item Cart Remove Successfully !');
+        return redirect()->route('cart')
+            ->with('success','Product deleted successfully');
 
-return redirect()->route('cart.list');
-}
+    }
 
-public function clearAllCart(){
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeAll()
+    {
+        session()->forget('cart');
 
-\Cart::clear();
+        return redirect()->route('products.index')
+            ->with('success','Product deleted successfully');
 
-session()->flash('success', 'All Item Cart Clear Successfully !');
-
-return redirect()->route('products.index');
-}
-
-public function getTotalQuantity(){
-
-    $items = $this->getContent();
-
-    if ($items->isEmpty()) return 0;
-
-    $count = $items->sum(function ($item) {
-        return $item['quantity'];
-    });
-
-    return $count;
-}
+    }
 }
