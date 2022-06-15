@@ -51,7 +51,6 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route('products.destroy', $item->id) }}" method="post">
-
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -72,6 +71,7 @@
             </div>
         </div>
         <br>
+        @if(empty($trash))
         <div class="container px-6 mx-auto">
             <div class="w-full flex justify-center my-6">
                 <div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
@@ -117,5 +117,6 @@
                 <a class="btn btn-primary" href="{{ route('products.restoreAll') }}">Restore All Product</a>
             </div>
         </div>
+        @endif
     </main>
 @endsection
