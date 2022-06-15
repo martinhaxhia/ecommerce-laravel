@@ -12,20 +12,7 @@
                         </div>
                     @endif
                     <h3 class="text-3xl text-bold">You have added to Cart </h3>
-                    <div class="flex-1">
-                        <form action="{{ route('cart.update') }}" method="POST">
-                            @csrf
-                            Select a product
-                            <select name="product">
-                                @foreach($products as $product)
-                                    <option value="{{ $product->id  }}">{{ $product->name  }}</option>
-                                @endforeach
-                            </select>
-                            quantity <br/>
-                            <input name="quantity" type="number" min="1" >
-                            <input type="submit">Add to cart</input>
-                        </form>
-                    </div>
+
                     <div class="flex-1">
                         <table class="table" >
                             <thead>
@@ -67,10 +54,7 @@
                             </tbody>
                         </table>
                         <div class="buttons">
-                            <form action="{{ route('cart.update') }}" id="saveCartBtn" method="POST">
-                                @csrf
-                                <button class="btn btn-info">Save the cart</button>
-                            </form>
+
                             <form action="{{ route('clearCart') }}" method="POST">
                                 @csrf
                                 <button class="btn btn-warning">Remove All Cart</button>

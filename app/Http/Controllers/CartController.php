@@ -87,4 +87,16 @@ class CartController extends Controller
             ->with('success','Product deleted successfully');
 
     }
+    public function getTotalQuantity(){
+
+        $items = $this->getContent();
+
+        if ($items->isEmpty()) return 0;
+
+        $count = $items->sum(function ($item) {
+            return $item['quantity'];
+        });
+
+        return $count;
+    }
 }

@@ -21,7 +21,7 @@
                                             <h3 class="text-gray-700 uppercase">{{ $product->name }}</h3>
                                             <strong class="mt-2">${{ $product->price }}</strong>
                                             <br>
-                                            <a class="btn btn-success" href="{{ route('cart.store', $product->id) }}">Add To Card</a>
+                                            <a class="btn btn-success" href="{{ route('add.to.cart', $product->id) }}">Add To Card</a>
                                             @endguest
                         </div>
                     </div>

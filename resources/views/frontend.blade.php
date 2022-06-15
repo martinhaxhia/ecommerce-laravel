@@ -35,7 +35,7 @@
                     @else
                         <a href="#about">Account <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
-                    <a href="{{ route('cart.list') }}"><i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                    <a href="{{ route('cart') }}"><i class="fa fa-cart-plus" aria-hidden="true"> </i>
                         {{ Cart::getTotalQuantity()}}
                     </a>
                         <a class="nav-link" href="{{ route('signout') }}">Logout</a>
