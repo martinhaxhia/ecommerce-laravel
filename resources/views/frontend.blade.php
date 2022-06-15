@@ -11,8 +11,20 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    header{
+        /* fallback for old browsers */
+        background: #6a11cb;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    }
+
+</style>
 <body>
-<div  class="bg-white">
     <header>
         <div class="container px-6 py-3 mx-auto">
             <nav  class="navigation ">
@@ -32,7 +44,7 @@
             </nav>
         </div>
     </header>
-</div>
+
 @yield('content')
 
 <!-- JavaScript Bundle with Popper -->
