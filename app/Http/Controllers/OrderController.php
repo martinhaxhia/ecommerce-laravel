@@ -13,17 +13,17 @@ class OrderController extends Controller
         return view('order', compact('orderItems'));
     }
 
-public function addToOrder(Request $request)
-    {
-        
-        \Order::add(
-        $request->id,
-        [
-            'quantity' => [
-                'relative' => false,
-                'value' => $request->quantity
-            ],
-        ]
-    );
-    }
+    public function addToOrder(Request $request)
+        {
+
+            \Order::add(
+            $request->id,
+            [
+                'quantity' => [
+                    'relative' => false,
+                    'value' => $request->quantity
+                ],
+            ]
+        );
+        }
 }

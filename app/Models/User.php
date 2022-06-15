@@ -48,6 +48,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function getImageAttribute(){
+        return $this->attributes['image'];
+    }
+
+    public function getFullImageUrlAttribute(){
+        if (!isset($this->featured_image)){
+            return  '';
+        }
+        return asset('storage/products/'.$this->featured_image->hash_name);
+    }
     public function images(){
         return $this->hasMany(Media::class, 'user_id');
     }

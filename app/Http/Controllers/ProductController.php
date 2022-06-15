@@ -74,8 +74,8 @@ class ProductController extends Controller
      */
     public function show()
     {
-        $trashed = Product::onlyTrashed()->get();
         $products = Product::get();
+        $trashed = Product::onlyTrashed()->get();
         return view('admin.products', compact('products',"trashed"));
     }
 
@@ -148,8 +148,8 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('products.index')
-            ->with('success','Product deleted successfully');
+        return back();
+
     }
 
     /**
