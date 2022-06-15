@@ -33,7 +33,6 @@
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" title="Delete Product">
                                                      Delete
                                                 </a>
-
                                             <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -43,7 +42,6 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                         <form action="{{ route('products.destroy', $product->id) }}" method="post">
-
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -53,7 +51,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                             @endguest
                         </div>
                     </div>

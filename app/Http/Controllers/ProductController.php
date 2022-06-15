@@ -164,10 +164,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Write code on Method
-     *
-     * @return response()
+     * @return \Illuminate\Http\RedirectResponse
      */
+
     public function restoreAll()
     {
         Product::onlyTrashed()->restore();
