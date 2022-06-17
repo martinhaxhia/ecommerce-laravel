@@ -70,7 +70,7 @@
             </div>
         </div>
         @endif
-    @if(!$trashed->isEmpty())
+        @if(!$trashed->isEmpty())
         <br>
         <div class="container px-6 mx-auto">
             <div class="w-full flex justify-center my-6">
