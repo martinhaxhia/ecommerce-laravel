@@ -6,7 +6,6 @@ use App\Mail\WelcomeMail;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
-
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -20,13 +19,13 @@ Route::group(['prefix' => 'admin','middleware' => 'adminauth'], function () {
     // Admin Dashboard
     Route::get('dashboard','AdminController@dashboard')->name('dashboard');
 });
-
 /*
 |--------------------------------------------------------------------------
 | User Routes
 |--------------------------------------------------------------------------
 */
 Route::get('login', [UserController::class, 'index'])->name('login');
+Route::get('Account', [UserController::class, 'singleUser'])->name('user.Account');
 Route::get('users.show', [UserController::class, 'show'])->name('customers');
 Route::post('custom-login', [UserController::class, 'Login'])->name('login.custom');
 Route::get('registration', [UserController::class, 'registration'])->name('register-user');
@@ -62,7 +61,6 @@ Route::get('/email', function (){
 | Cart Routes
 |--------------------------------------------------------------------------
 */
-
 Route::get('cart', [CartController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');

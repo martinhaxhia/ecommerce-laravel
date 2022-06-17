@@ -3,7 +3,14 @@
 
 @section('content')
     <main class="my-8">
-        <div class="container px-6 mx-auto">
+        @if($count = count(session()->get('cart', [])) == 0)
+            <h3 class="text-3xl text-bold">You have added to Cart </h3>
+            <form action="{{ route('clearCart') }}" method="POST">
+                @csrf
+                <button class="btn btn-warning">Return to Shop</button>
+            </form>
+        @else
+            <div class="container px-6 mx-auto">
             <div class="flex justify-center my-6">
                 <div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
                     @if ($message = Session::get('success'))
@@ -28,7 +35,7 @@
                             @foreach(session('cart') as $id => $details)
                                 <tr class="row-product" data-id="{{ $id }}" data-price="{{ $details['price'] }}">
                                     <td>
-                                        <p >{{ $details['name'] }}</p>
+                                        <p>{{ $details['name'] }}</p>
                                     </td>
                                     <td data-th="Quantity">
                                         <input type="number" min="1" value="{{ $details['quantity'] }}" class="quantity update-cart row-quantity" />
@@ -65,5 +72,6 @@
                 </div>
             </div>
         </div>
+        @endif
     </main>
 @endsection

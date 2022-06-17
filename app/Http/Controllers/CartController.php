@@ -89,14 +89,8 @@ class CartController extends Controller
     }
     public function getTotalQuantity(){
 
-        $items = $this->getContent();
+        return $count = count(session()->get('cart', []));
 
-        if ($items->isEmpty()) return 0;
 
-        $count = $items->sum(function ($item) {
-            return $item['quantity'];
-        });
-
-        return $count;
     }
 }

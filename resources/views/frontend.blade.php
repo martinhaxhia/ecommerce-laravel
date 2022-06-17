@@ -12,6 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
+    .nav-item .nav-link i{
+        width: 25px;
+    }
     header{
         /* fallback for old browsers */
         background: #6a11cb;
@@ -33,10 +36,10 @@
                     @guest
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     @else
-                        <a href="#about">Account <i class="fa fa-user" aria-hidden="true"></i>
+                        <a href="{{ route('user.Account') }}">Account <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
                     <a href="{{ route('cart') }}"><i class="fa fa-cart-plus" aria-hidden="true"> </i>
-                        {{ Cart::getTotalQuantity()}}
+                        {{ \App\Http\Controllers\CartController::getTotalQuantity()}}
                     </a>
                         <a class="nav-link" href="{{ route('signout') }}">Logout</a>
                     @endguest

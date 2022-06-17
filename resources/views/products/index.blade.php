@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container px-6 mx-auto">
+    <div class="container mt-4 px-6 mx-auto">
         <div class="row">
             @foreach ($products as $product)
                 @csrf
@@ -23,9 +23,9 @@
                                             <br>
                                             <a class="btn btn-success" href="{{ route('add.to.cart', $product->id) }}">Add To Card</a>
                                             @endguest
-                        </div>
-                    </div>
-                </div>
+                                        </div>
+                                    </div>
+                                </div>
             @endforeach
         </div>
     </div>
