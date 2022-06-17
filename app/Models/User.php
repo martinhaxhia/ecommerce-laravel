@@ -65,4 +65,7 @@ class User extends Authenticatable
     public function getFeaturedImageAttribute(){
         return $this->images()->first();
     }
+    public function address(){
+        return $this->hasMany(Address::class, 'user_id');
+    }
 }

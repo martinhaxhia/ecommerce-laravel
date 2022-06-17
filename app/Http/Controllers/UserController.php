@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\User;
 use Brian2694\Toastr\Toastr;
 use Hash;
 use Session;
 
+use App\Http\Requests\UserAddressRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Services\UserService;
+use App\Services\AddressService;
 use App\Http\Requests\LoginUserRequest;
 
 use Illuminate\Http\Request;
@@ -17,13 +20,18 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     private $userService;
+    private $addressService;
+
 
     /**
      * @param UserService $userService
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService ,AddressService $addressService)
     {
         $this->userService = $userService;
+
+        $this->addressService = $addressService;
+
     }
 
     /**
@@ -50,6 +58,15 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return view('user.acount', compact('user'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function userDetails()
+    {
+        $user = Auth::user();
+        return view('user.details', compact('user'));
     }
     /**
      * @param LoginUserRequest $request
@@ -105,6 +122,30 @@ class UserController extends Controller
         $newUser = $this->userService->create($data);
 
         return redirect("/login");
+    }
+
+    /**
+     * @return void
+     */
+    public function userAddress(){
+        $user = Auth::user();
+
+
+        return view('user.address', compact('user'));
+    }
+
+    /**
+     * @param UserAddressRequest $request
+     * @return void
+     */
+    public function addressCreate(UserAddressRequest $request ,$id)
+    {
+        $validated = $request->validated();
+
+        $data = $request->all();
+
+        $newAddress = $this->addressService->create($data,$id);
+
     }
 
     /**

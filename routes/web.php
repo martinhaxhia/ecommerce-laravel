@@ -26,6 +26,9 @@ Route::group(['prefix' => 'admin','middleware' => 'adminauth'], function () {
 */
 Route::get('login', [UserController::class, 'index'])->name('login');
 Route::get('Account', [UserController::class, 'singleUser'])->name('user.Account');
+Route::get('Details', [UserController::class, 'userDetails'])->name('user.details');
+Route::get('Address', [UserController::class, 'userAddress'])->name('user.address');
+Route::post('address-create', [UserController::class, 'addressCreate'])->name('address.create');
 Route::get('users.show', [UserController::class, 'show'])->name('customers');
 Route::post('custom-login', [UserController::class, 'Login'])->name('login.custom');
 Route::get('registration', [UserController::class, 'registration'])->name('register-user');
