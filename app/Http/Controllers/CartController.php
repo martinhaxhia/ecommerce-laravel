@@ -2,11 +2,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    /**
+    private $cartService;
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+        /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function cart()
@@ -24,21 +31,7 @@ class CartController extends Controller
      */
     public function addToCart($id)
     {
-        $product = Product::findOrFail($id);
-
-        $cart = session()->get('cart', []);
-
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-            ];
-        }
-
-        session()->put('cart', $cart);
+        $this->cartService->addToCart($id);
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
@@ -48,15 +41,8 @@ class CartController extends Controller
      */
     public function updateCart(Request $request)
     {
+        $this->cartService->updateCart($request);
 
-        $allCartProducts = $request->products;
-        $cart = session()->get('cart', []);
-
-        foreach ($allCartProducts as $id => $product){
-            $cart[$id]['quantity'] = $product['quantity'];
-        }
-
-        session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Cart is  saved!');
     }
 
@@ -66,10 +52,7 @@ class CartController extends Controller
      */
     public function remove($id)
     {
-        $cart = session()->pull('cart', []);
-        unset($cart[$id]);
-
-        session()->put('cart', $cart);
+        $this->cartService->remove($id);
 
         return redirect()->route('cart')
             ->with('success','Product deleted successfully');
@@ -81,7 +64,7 @@ class CartController extends Controller
      */
     public function removeAll()
     {
-        session()->forget('cart');
+        $this->cartService->removeAll();
 
         return redirect()->route('products.index')
             ->with('success','Product deleted successfully');

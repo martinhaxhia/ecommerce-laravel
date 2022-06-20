@@ -23,7 +23,7 @@
                     @guest
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     @else
-                        <a href="{{ route('user.Account') }}">Account <i class="fa fa-user" aria-hidden="true"></i>
+                        <a href="{{ route('user.details') }}">Account <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
                     <a href="{{ route('cart') }}"><i class="fa fa-cart-plus" aria-hidden="true"> </i>
                         {{ \App\Http\Controllers\CartController::getTotalQuantity()}}

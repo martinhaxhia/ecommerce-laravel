@@ -16,7 +16,7 @@ class Address extends Model
         'address',
         'city',
         'country',
-        'zip-code',
+        'zip_code',
     ];
     /**
      * @var mixed

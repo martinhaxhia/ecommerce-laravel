@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class AddressService
 {
-    public function create($file, $userId)
+    public function create($data, $userId)
     {
         Address::create([
             'user_id' => $userId,
-            'address' => $file,
-            'city' => $file,
-            'country' => $file,
-            'zip-code' => $file,
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'country' => $data['country'],
+            'zip_code' => $data['zip_code'],
         ]);
     }
 }

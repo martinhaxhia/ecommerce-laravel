@@ -24,11 +24,11 @@ class UserAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'address' => 'required|min:6',
-            'city' => 'required|min:6',
-            'country' => 'required|min:6',
-            'zip-code' => 'required|min:6'
 
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'zip_code' => 'required',
         ];
     }
 }

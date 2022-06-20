@@ -2,8 +2,9 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+
 use App\Mail\WelcomeMail;
-use Brian2694\Toastr\Toastr;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 /*
@@ -64,6 +65,7 @@ Route::get('/email', function (){
 | Cart Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('cart', [CartController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');

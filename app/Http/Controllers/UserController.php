@@ -128,23 +128,31 @@ class UserController extends Controller
      * @return void
      */
     public function userAddress(){
+
         $user = Auth::user();
 
-
-        return view('user.address', compact('user'));
+        $address = Address::latest()->get();
+        return view('user.address', compact('user','address'));
     }
 
     /**
      * @param UserAddressRequest $request
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function addressCreate(UserAddressRequest $request ,$id)
+
+    public function addressCreate(UserAddressRequest $request )
     {
+        $user = Auth::user();
+
+        $userId = $user['id'];
+
         $validated = $request->validated();
 
         $data = $request->all();
 
-        $newAddress = $this->addressService->create($data,$id);
+        $newAddress = $this->addressService->create($data,$userId);
+
+        return back();
 
     }
 
